@@ -1,0 +1,7 @@
+{
+  "name": "UniToolBox Hub",
+  "description": "A comprehensive multi-platform web suite featuring utilities, hustle finding, resume building, and finance tools.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

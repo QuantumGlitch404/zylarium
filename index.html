@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="https://picsum.photos/32/32" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zylarium - Your Digital Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Pinyon+Script&family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Indie+Flower&family=Kalam:wght@300;400;700&family=Pacifico&family=Patrick+Hand&family=Sacramento&family=Satisfy&family=Shadows+Into+Light&display=swap"
+    rel="stylesheet">
+
+  <!-- Polyfill for TextEncoder/TextDecoder to ensure PDF-Lib works in all contexts -->
+  <script src="https://unpkg.com/fast-text-encoding@1.0.6/text.min.js"></script>
+
+  <!-- PDF-LIB: Load full UMD build to ensure encryption support -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Premium Deep Violet/Purple palette
+            primary: {
+              50: '#faf5ff',
+              100: '#f3e8ff',
+              200: '#e9d5ff',
+              300: '#d8b4fe',
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7c3aed',
+              800: '#6b21a8',
+              900: '#581c87',
+              950: '#3b0764',
+            },
+            // Premium Cyan/Teal accent palette
+            secondary: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+            },
+            // Deep dark backgrounds for premium feel
+            dark: {
+              bg: '#0a0a0f',
+              surface: '#12121a',
+              card: '#1a1a24',
+            },
+            // Metallic accents
+            metallic: {
+              silver: '#c0c0c0',
+              gold: '#d4af37',
+              platinum: '#e5e4e2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      cursor: none !important;
+    }
+
+    .font-signature {
+      font-family: 'Pinyon Script', cursive;
+    }
+
+    .font-heading {
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Hide default cursor on all elements */
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
+
+    /* Custom scrollbar for webkit */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      .print-only {
+        display: block !important;
+      }
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^2.5.1/dist/jspdf.es.min.js",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+    "tesseract.js": "https://esm.sh/tesseract.js@5.0.3",
+    "xlsx": "https://esm.sh/xlsx@0.18.5",
+    "pdfjs-dist": "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/+esm",
+    "mammoth": "https://esm.sh/mammoth@1.6.0",
+    "mathjs": "https://esm.sh/mathjs@12.4.0",
+    "jszip": "https://esm.sh/jszip@3.10.1"
+  }
+}
+</script>
+
+  <!-- Load generic Tesseract worker scripts if needed by the library internally -->
+  <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-transparent text-slate-900 dark:text-gray-100 transition-colors duration-200">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

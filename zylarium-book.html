@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zylarium - Complete Project Documentation</title>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --secondary: #06b6d4;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a 40%, #020617);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 5rem;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 4rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0 0 1.5rem 0;
+            background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #67e8f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+            line-height: 1.1;
+        }
+
+        h2 { 
+            margin-top: 0; 
+            color: #ffffff; 
+            font-size: 2.5rem; 
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        h3 { 
+            color: var(--secondary); 
+            font-size: 1.8rem; 
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h4 {
+            color: var(--primary-light);
+            font-size: 1.4rem;
+            margin-top: 2.5rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+        
+        h5 {
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 2rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        p { 
+            margin-bottom: 1.5rem; 
+            font-size: 1.15rem; 
+            font-weight: 300;
+            color: #e2e8f0;
+        }
+
+        ul, ol { 
+            margin-bottom: 2rem; 
+            color: #cbd5e1; 
+            font-size: 1.1rem;
+            padding-left: 2rem;
+        }
+        
+        li { 
+            margin-bottom: 0.8rem; 
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 0.8rem 1.5rem;
+            border-radius: 999px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ddd6fe;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        th { 
+            color: #ffffff; 
+            font-weight: 600; 
+            background: rgba(139, 92, 246, 0.2);
+            font-size: 1.1rem;
+        }
+        
+        td { 
+            color: #e2e8f0; 
+            font-size: 1.05rem;
+        }
+
+        .feature-box {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 5px solid var(--secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .toc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toc a {
+            color: #e2e8f0;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+        }
+        
+        .toc a:hover { 
+            color: #ffffff;
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateX(10px);
+        }
+
+        .footer-note {
+            text-align: right;
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-top: 3rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
+        }
+        
+        .header-bg-glow {
+            position: absolute;
+            top: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .header-bg-glow-2 {
+            position: absolute;
+            bottom: -150px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            filter: blur(150px);
+            opacity: 0.2;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        code {
+            font-family: inherit;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #67e8f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- COVER PAGE -->
+        <div class="page">
+            <div class="glass-panel" style="text-align: center; padding: 6rem 4rem;">
+                <div class="header-bg-glow"></div>
+                <div class="header-bg-glow-2"></div>
+                
+                <h1>Zylarium</h1>
+                
+                <div class="tagline">
+                    “Your Complete Digital Toolkit.<br>
+                    Five Powerful Platforms. Zero Cost. Unlimited Potential.”
+                </div>
+                
+                <h3 style="color: #ffffff; font-weight: 400; margin-top: 4rem; letter-spacing: 2px; text-transform: uppercase;">
+                    Extremely Detailed Project Documentation
+                </h3>
+                
+                <div class="badge-row" style="justify-content: center;">
+                    <span class="badge">Comprehensive File Review</span>
+                    <span class="badge">Every Tool Explained</span>
+                    <span class="badge">Complete Architecture Guide</span>
+                </div>
+
+                <div class="feature-box" style="text-align: left; margin: 3rem auto;">
+                    <strong style="color: #67e8f9; font-size: 1.3rem;">Project Mission:</strong><br><br>
+                    <span style="font-size: 1.2rem; line-height: 1.6;">
+                        This document explains everything about Zylarium. It leaves absolutely nothing out. It lists every single folder, explains every single file, and describes exactly how over 30 different tools function in clear and simple English.
+                    </span>
+                </div>
+
+                <div style="margin-top: 5rem; color: #94a3b8; font-size: 1.1rem; text-align: left; display: flex; justify-content: space-between;">
+                    <div>
+                        <strong>Produced By</strong><br>
+                        Zylarium Engineering Team
+                    </div>
+                    <div style="text-align: right;">
+                        <strong>Product Release</strong><br>
+                        Year 2026
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENTS -->
+        <div class="glass-panel">
+            <h2>Contents</h2>
+            <div class="toc">
+                <a href="#section-1"><span>1 Detailed Project Overview</span> <span>→</span></a>
+                <a href="#section-2"><span>2 Why Zylarium Exists</span> <span>→</span></a>
+                <a href="#section-3"><span>3 Core Rules and Boundaries</span> <span>→</span></a>
+                <a href="#section-4"><span>4 The File & Folder Architecture Explained</span> <span>→</span></a>
+                <a href="#section-5"><span>5 Module 1: UniToolBox (Every Tool Detailed)</span> <span>→</span></a>
+                <a href="#section-6"><span>6 Module 2: HustleFinder Features</span> <span>→</span></a>
+                <a href="#section-7"><span>7 Module 3: Finance Tools Dashboard</span> <span>→</span></a>
+                <a href="#section-8"><span>8 Module 4: Code X-Ray System</span> <span>→</span></a>
+                <a href="#section-9"><span>9 Module 5: Resume Builder Workflow</span> <span>→</span></a>
+                <a href="#section-10"><span>10 Verification Checklist</span> <span>→</span></a>
+            </div>
+        </div>
+
+        <!-- 1 PROJECT OVERVIEW -->
+        <div id="section-1" class="glass-panel">
+            <h2>1 Detailed Project Overview</h2>
+            <p>Zylarium is a large-scale website that works like an entire desktop computer program inside your browser. Instead of making users download messy software or pay expensive monthly fees for tools they only use sometimes, Zylarium provides an enormous library of utilities instantly for free.</p>
+            
+            <p>The visual design of the website uses a "Liquid Glass" theme. This means backgrounds are dark, elements are slightly transparent so you can see blurred colors behind them, and text uses sharp, glowing highlights to draw attention to important information.</p>
+        </div>
+
+        <!-- 2 WHY THIS PROJECT EXISTS -->
+        <div id="section-2" class="glass-panel">
+            <h2>2 Why Zylarium Exists</h2>
+            <p>Many websites on the internet try to exploit regular users. If you want to merge two PDF files, a search usually takes you to a site filled with confusing buttons, heavy advertisements, and a hidden subscription fee. Even worse, many sites force you to upload your private business documents or personal identification photos to their servers to process them, creating a massive security risk.</p>
+            
+            <p><strong>The Solution:</strong> Zylarium was built to reverse this trend. The goal is to provide beautiful, fast, and totally free tools that process everything locally on the user's computer. It brings together designers, programmers, freelancers, and normal computer users into one reliable workspace.</p>
+        </div>
+
+        <!-- 3 CORE RULES -->
+        <div id="section-3" class="glass-panel">
+            <h2>3 Core Rules and Boundaries</h2>
+            <ul>
+                <li><strong>Rule 1: Client-Side Safety Guarantee.</strong> When a user clicks a button to convert a file or process an image, the website's javascript code must do the heavy lifting in the browser memory. The website will never secretly upload the file to a remote server.</li>
+                <li><strong>Rule 2: Stunning Visuals over Boring Utility.</strong> People associate free internet tools with ugly design. Zylarium must feel like a premium paid application. Animations must be smooth, components must fade in gently, and buttons must react cleanly when hovered over.</li>
+                <li><strong>Rule 3: Simple Vocabulary.</strong> The website should not use complex engineering jargon on the front-end interface, so that everyday users can quickly understand what a tool does.</li>
+            </ul>
+        </div>
+
+        <!-- 4 FILE ARCHITECTURE -->
+        <div id="section-4" class="glass-panel">
+            <h2>4 The File & Folder Architecture Explained</h2>
+            <p>To understand Zylarium, you must understand exactly how the project folders are built. Below is a highly detailed explanation of every folder and what role it plays in making the website work.</p>
+
+            <h3>The Main Folders</h3>
+            
+            <div class="feature-box">
+                <strong style="color: #67e8f9; font-size: 1.3rem;">/src/pages/</strong>
+                <p>This folder is where the massive, whole-screen pages live. When you click a link on the top menu of the website, the application loads one of the files from this folder.</p>
+                <ul>
+                    <li><strong>Home.tsx:</strong> The beautiful hero screen you see first. It has the glowing title, the parallax scrolling features, and the links to the main five sections.</li>
+                    <li><strong>Unitoolbox.tsx:</strong> The massive library page. It builds the layout showing the search bar, category filters, and the grid of 30+ clicking tool cards.</li>
+                    <li><strong>HustleFinder.tsx:</strong> The freelance job directory page. This builds the dual-column layout where the search and checkbox filters sit on the left, and the job cards appear on the right.</li>
+                    <li><strong>FinanceTools.tsx:</strong> The money dashboard. This page builds the colorful pie charts showing budget data and the large loan calculator.</li>
+                    <li><strong>CodeXRay.tsx:</strong> The developer center. This builds the interface for all the advanced code architecture mapping systems.</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <strong style="color: #67e8f9; font-size: 1.3rem;">/src/components/</strong>
+                <p>This folder is enormous. It does not hold entire pages, but rather the small "building blocks" that create the pages. If a page is a house, this folder holds the doors, windows, and bricks.</p>
+                <ul>
+                    <li><strong>Layout.tsx & CommonUI.tsx:</strong> These hold the standard buttons, input boxes, and the main website wrapper (the navigation bar at the top and the footer at the bottom). We reuse these everywhere so the website design stays perfectly consistent.</li>
+                    <li><strong>/src/pages/components/ (Inside Unitoolbox):</strong> This is incredibly important. Every single one of the 30+ tools in UniToolbox has its own unique <code>.tsx</code> file here. When you click the "Image Compressor" card, the website fetches the specific <code>ImageCompressor.tsx</code> file to display the upload box and sliders on your screen.</li>
+                    <li><strong>/src/components/resume/:</strong> Contains all the specific blocks for building a resume, like the "Experience field" input forms or the "Education field" forms.</li>
+                    <li><strong>/src/components/codexray/:</strong> Contains the complex diagram blocks used by the developer tools section.</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <strong style="color: #67e8f9; font-size: 1.3rem;">/src/services/</strong>
+                <p>This folder contains the "connecting cables" that talk to the outside world.</p>
+                <ul>
+                    <li><strong>geminiService.ts:</strong> This specific file holds the instructions for talking to Google's artificial intelligence. If a user wants to summarize a book, the website uses this file to package the text, send it securely to Google's brain, and bring the summary back to the screen.</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <strong style="color: #67e8f9; font-size: 1.3rem;">/src/data/ & /src/store/</strong>
+                <p>These folders handle information logic.</p>
+                <ul>
+                    <li><strong>hustleData.ts:</strong> A file packed with writing. It contains the raw job descriptions, required skills, and estimated earnings for all 120+ side hustles shown in the HustleFinder.</li>
+                    <li><strong>State Management (Store):</strong> Contains logic to remember what the user is doing. For example, remembering which tab a user is looking at without reloading the web page.</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <strong style="color: #67e8f9; font-size: 1.3rem;">Root Base Files</strong>
+                <p>The files that sit at the absolute bottom of the project and make everything run.</p>
+                <ul>
+                    <li><strong>index.html:</strong> The absolute foundational blank canvas of the website.</li>
+                    <li><strong>App.tsx:</strong> The traffic controller. It tells the browser "If the user visits the address '/unitoolbox', load the Unitoolbox.tsx page file."</li>
+                    <li><strong>index.css:</strong> The styling heartbeat. This file holds hundreds of lines of visual code that defines exactly what color the "primary" purple is, how fast the fade-in animations take to execute, and how the glowing liquid glass backgrounds are painted.</li>
+                    <li><strong>package.json:</strong> The instruction manual for the computer. It lists every external library the project needs (like React, Tailwind, Framer Motion) so another developer can download and run the project easily.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5 UNITOOLBOX DETAILED -->
+        <div id="section-5" class="glass-panel">
+            <h2>5 Module 1: UniToolBox (Every Tool Detailed)</h2>
+            <p>UniToolbox is the giant grid of small utility programs. Here is exactly what every single tool does, how it functions for the user, and how it is built under the surface.</p>
+
+            <h3>Text & Artificial Intelligence Tools</h3>
+            
+            <h4>1. AI Essay Summarizer</h4>
+            <ul>
+                <li><strong>Functionality:</strong> A user copies and pastes a massive wall of text into a text box and clicks "Summarize". The screen presents a short, bulleted list of the main points.</li>
+                <li><strong>How it works under the hood:</strong> The tool takes the text from the input box, formats it into a specific prompt, and sends it to the <code>geminiService.ts</code> file. This service securely queries Google's AI model with instructions to condense the text. The website waits for the reply and prints it on the screen.</li>
+            </ul>
+
+            <h4>2. AI Language Translator</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Similar to Google Translate. Type text in one box, choose a target language, and receive the translation instantly.</li>
+                <li><strong>How it works under the hood:</strong> Also routes through the Gemini AI service, passing explicit system instructions to act as a highly accurate language interpreter rather than a conversational chat robot.</li>
+            </ul>
+
+            <h4>3. AI Book Summary</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Users can upload entire document files (PDFs or Word docs) instead of just pasting text. The tool reads the file and outputs an intelligent summary of the chapters.</li>
+                <li><strong>How it works under the hood:</strong> It utilizes the <code>pdfjs-dist</code> library to open the PDF file locally in the browser memory, scans through the pages to extract raw text characters, chunks the text into manageable pieces, and feeds it to the AI summarizer.</li>
+            </ul>
+
+            <h4>4. ASCII to Text</h4>
+            <ul>
+                <li><strong>Functionality:</strong> A simple decoding tool. Paste computer numbers (like <code>01001000 01101001</code>) and it outputs the human language equivalent (like "Hi").</li>
+                <li><strong>How it works under the hood:</strong> Uses pure, native Javascript string manipulation functions. It splits the numbers by spaces, reads their binary or hexadecimal value, and converts them to standard characters in milliseconds without any outside APIs.</li>
+            </ul>
+
+            <h4>5. Text to Handwriting</h4>
+            <ul>
+                <li><strong>Functionality:</strong> You type an essay into a box. The screen shows a preview of a piece of notebook paper where your essay looks like it was written by a human hand using blue ink. You can download the image.</li>
+                <li><strong>How it works under the hood:</strong> The tool uses the HTML5 <code>&lt;canvas&gt;</code> element. It draws a picture of lined notebook paper in the background. Then, using specialized downloaded fonts (like 'Caveat' or 'Dancing Script'), it draws the user's text on top of the paper lines. The <code>html2canvas</code> library then saves the canvas as a downloadable PNG picture.</li>
+            </ul>
+
+            <h4>6. AI Voice Notes</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload an audio recording. The tool listens and writes down everything said into a clean document.</li>
+                <li><strong>How it works under the hood:</strong> Uses browser APIs and AI transcription services to decode the audio waveform into recognizable speech strings, format them properly, and present them in a text box.</li>
+            </ul>
+
+            <h3>Image Tools</h3>
+
+            <h4>7. Image Compressor</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload a massive, 5 Megabyte photograph. A slider lets you pick the desired quality. It instantly provides a new, visually identical photograph that is only 500 Kilobytes in size, making it much faster to email or upload.</li>
+                <li><strong>How it works under the hood:</strong> It loads the image into a hidden HTML5 canvas. When the user changes the quality slider, the script commands the canvas to export the image data (using <code>canvas.toDataURL('image/jpeg', qualityValue)</code>). It calculates the math to show the exact size reduction on the screen.</li>
+            </ul>
+
+            <h4>8. Image Resizer</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Allows a user to stretch or shrink an image's pixel dimensions exactly (for example, turning a 1920x1080 wallpaper into a 500x500 square).</li>
+                <li><strong>How it works under the hood:</strong> The image is drawn onto an invisible canvas sized exactly to the user's newly requested width and height. Javascript then mathematically scales the image pixels to fit the new box and exports the picture.</li>
+            </ul>
+
+            <h4>9. Background Remover</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Click on a picture of a person standing outside. After processing, the background disappears, leaving only the person cut out perfectly on a transparent background.</li>
+                <li><strong>How it works under the hood:</strong> Because advanced background removal is incredibly difficult for standard browsers to do mathematically, it often hooks into a lightweight client-side machine learning model (like TensorFlow.js) that specifically identifies human silhouettes and clears surrounding pixel values to "transparent".</li>
+            </ul>
+
+            <h4>10. Image to Text (OCR)</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload a picture of a street sign or a printed document. The tool extracts all the readable words from the picture into a copy-pasteable text box.</li>
+                <li><strong>How it works under the hood:</strong> It runs the <code>tesseract.js</code> library. This is an optical character recognition engine that scans the contrast of pixels in the image to recognize shapes of letters, matching them to an alphabet database loaded in the browser.</li>
+            </ul>
+
+            <h4>11. Image to Icon</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload a logo image, and instantly receive appropriately trimmed and squared <code>.ico</code> files perfect for website browser tabs.</li>
+                <li><strong>How it works under the hood:</strong> Shrinks the image onto a series of very small canvas boxes (like 16x16, 32x32 pixels) and exports the raw data formatted with a specific icon file extension.</li>
+            </ul>
+
+            <h4>12. Passport Photo Gen</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload a selfie. The tool places an oval frame over the picture, allows the user to align their face perfectly, and spits out a 2x2 inch printable photo sheet.</li>
+                <li><strong>How it works under the hood:</strong> A highly structured canvas interface. It acts like a window. It measures the exact mathematical ratio required for government photos, crops out anything outside the window, and draws that cropped face repeatedly on a larger canvas simulating a 4x6 photo paper size.</li>
+            </ul>
+
+            <h3>Document & Data Tools</h3>
+
+            <h4>13. & 14. PDF to Word / Word to PDF</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Changes files from uneditable PDF layouts to editable typed Word documents, and vice versa.</li>
+                <li><strong>How it works under the hood:</strong> A very difficult process. Converting Word to PDF involves deeply reading the <code>.docx</code> internal XML structure to find paragraphs and fonts, then drawing those elements identically using the <code>pdf-lib</code> library to create a solid document.</li>
+            </ul>
+
+            <h4>15. Text to PDF</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Type into a blank box, click a button, and get a clean PDF document back.</li>
+                <li><strong>How it works under the hood:</strong> The javascript loads a blank PDF page object into memory, measures the width of the user's typed sentences, wraps the text so it does not run off the side of the page, and draws the letters onto the PDF object before triggering a download.</li>
+            </ul>
+
+            <h4>16. Password Protect PDF</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload an unprotected PDF, type a strong password twice, and receive a new locked PDF that asks for a password whenever anyone tries to open it.</li>
+                <li><strong>How it works under the hood:</strong> Traditional browsers are currently very bad at the extremely heavy mathematics required to securely encrypt massive files. Therefore, this tool sends the file to a lightning-fast "Cloudflare Worker" (a serverless computer cluster on the edge of the internet). The Cloudflare worker locks the file using AES-256 military-style encryption and hands it straight back.</li>
+            </ul>
+
+            <h4>17. Image to PDF</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Select five different photographs and click combine. You receive one single PDF file with five pages, where each page is one of the photographs.</li>
+                <li><strong>How it works under the hood:</strong> The <code>pdf-lib</code> tool creates a blank book. It loops through the photographs, measures them, creates a blank page for each one exactly that size, embeds the image data onto the fresh page, and saves the book.</li>
+            </ul>
+
+            <h4>18. PDF to Image</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Upload a 10-page PDF document. Receive a ZIP folder containing 10 high-quality PNG pictures of those pages.</li>
+                <li><strong>How it works under the hood:</strong> Uses <code>pdfjs-dist</code>. It commands the browser to quietly render the PDF page visibly onto a hidden canvas element, exactly as a human would see it. Then, it snaps a picture of that canvas, repeats for every page, bundles the pictures using the <code>jszip</code> library, and triggers the download.</li>
+            </ul>
+
+            <h4>19. PDF Compressor</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Shrinks the megabyte size of a heavy PDF.</li>
+                <li><strong>How it works under the hood:</strong> It scans the entire PDF code to find embedded images and reduces their quality slightly, while also erasing invisible wasted data (like hidden layers or unused fonts) from the file structure without damaging the text.</li>
+            </ul>
+
+            <h4>20. & 21. PDF Splitter / PDF Merger</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Chops pages out of a book, or glues two books together to make a bigger one.</li>
+                <li><strong>How it works under the hood:</strong> The code opens both files in memory. For merging, it simply copies the page objects from the second book and appends them to the end of the array of pages in the first book, exactly like shuffling cards.</li>
+            </ul>
+
+            <h3>Media Tools</h3>
+
+            <h4>22. Pro Video Compressor</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Uploads an MP4 video, lowers the quality slightly, and provides a smaller file size download.</li>
+                <li><strong>How it works under the hood:</strong> Runs FFmpeg directly inside the web browser using a powerful technology called WebAssembly. It mathematically crunches the video frames to lower the bitrate without needing a server.</li>
+            </ul>
+
+            <h4>23. Video to GIF Pro</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Turns a short video clip into a repeating, silent animation (a GIF).</li>
+                <li><strong>How it works under the hood:</strong> Extracts all individual picture frames from the video and compiles them strictly into the GIF file format structure using browser memory.</li>
+            </ul>
+
+            <h4>24., 25. & 26. Resolution Changer, Format Converter, Rotator</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Stretches video size, changes formats, or fixes a video recorded upside down.</li>
+                <li><strong>How it works under the hood:</strong> All utilize the WebAssembly FFmpeg engine to rebuild the video file based on strict command-line style arguments processed directly by the client's CPU.</li>
+            </ul>
+
+            <h3>Converter Tools</h3>
+
+            <h4>27., 28., 29. & 30. Format Converters (WebP to JPG, PNG to SVG, etc.)</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Changes images from one file type to another to ensure compatibility with different websites or software.</li>
+                <li><strong>How it works under the hood:</strong> Relies on the HTML5 Canvas trick. Draw a WebP image onto the canvas, but ask the canvas to export it as a JPG. The browser handles the complex format translation natively, instantly giving the user the new file.</li>
+            </ul>
+
+            <h3>Utilities</h3>
+
+            <h4>31. Unit Converter</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Changes values (Miles to Kilometers, Pounds to Kilograms).</li>
+                <li><strong>How it works under the hood:</strong> Simple math dictionaries built into Javascript. Multiplies the input number by a strict, pre-defined mathematical constant based on user dropdown selection.</li>
+            </ul>
+
+            <h4>32. Advanced Calculator</h4>
+            <ul>
+                <li><strong>Functionality:</strong> A scientific calculator interface keeping a history of equations.</li>
+                <li><strong>How it works under the hood:</strong> Uses the <code>mathjs</code> library to securely and accurately evaluate complex mathematical strings (like parsing "sin(45) * log(10)") without accidentally processing harmful code.</li>
+            </ul>
+
+            <h4>33. & 34. Password Generator & Strength Checker</h4>
+            <ul>
+                <li><strong>Functionality:</strong> Creates a totally random string of letters and symbols, and judges how good passwords are.</li>
+                <li><strong>How it works under the hood:</strong> Uses cryptographic randomness tools built into the browser (<code>crypto.getRandomValues()</code>) to guarantee the password is mathematically unpredictable. The checker uses complex regular expressions (Regex) to scan the string and award a point score based on length and character variation.</li>
+            </ul>
+        </div>
+
+        <!-- 6 MODULE 2: HUSTLEFINDER -->
+        <div id="section-6" class="glass-panel">
+            <h2>6 Module 2: HustleFinder Features</h2>
+            <p>HustleFinder is a beautiful data catalog designed to help users browse 120+ verified side hustles.</p>
+
+            <h3>The Interface Anatomy</h3>
+            <ul>
+                <li><strong>The Header:</strong> A massive title section featuring animated numbers noting exactly how many total jobs are in the database.</li>
+                <li><strong>The Left Filter Panel:</strong> An always-visible (on large screens) command center. It offers tick boxes categorized nicely. A user can tick "Beginner Friendly", and the react state instantly hides all Advanced jobs without reloading the webpage.</li>
+                <li><strong>The Job Cards:</strong> Glass-styled cards representing a job. They contain badges mapping out the difficulty, a bold title, a short description, the exact estimated earning potential in green, and a list of required skills.</li>
+            </ul>
+
+            <h3>The Storage Mechanic (Favorites)</h3>
+            <p>Every single job card has a small star icon. When a user clicks the star, the system triggers a micro-animation (it scales up and down briefly) and turns it yellow.</p>
+            <p>Behind the scenes, the javascript grabs the unique ID number of that job (say, Job ID #45), packages it into a tiny JSON string, and shoves it into the browser's <code>localStorage</code> API. Tomorrow, when the user launches the website again, the code first peers into <code>localStorage</code>, sees "ID #45", matches it to the database, and repaints that star yellow immediately. Clicking the top "Show Saved" button simply commands the code to format the grid using only the IDs found in that local storage box.</p>
+        </div>
+
+        <!-- 7 MODULE 3: FINANCE TOOLS -->
+        <div id="section-7" class="glass-panel">
+            <h2>7 Module 3: Finance Tools Dashboard</h2>
+            <p>This module provides immediate visual clarity for personal wealth tracking.</p>
+
+            <h3>The Dashboard Charts</h3>
+            <p>When clicking the Dashboard tab, the user sees high-end KPI (Key Performance Indicator) cards showing Total Balance and Monthly Savings. Below these are two major visual components powered by the <code>recharts</code> library:</p>
+            <ul>
+                <li><strong>The Monthly Expenses Pie Chart:</strong> It takes an array of data (Rent: 1200, Food: 400) and feeds it to the Recharts engine. The engine mathematically calculates the angles for a circle and draws brightly colored, sweeping SVG curves to create a stunning, hoverable donut chart.</li>
+                <li><strong>The Net Worth Trend Line:</strong> Feeds historical data points onto an X-Y axis. The line chart curves smoothly between money points, creating a professional financial growth graph entirely formatted completely client-side.</li>
+            </ul>
+
+            <h3>The EMI Calculator Mechanics</h3>
+            <p>The layout features three primary input sliders: Loan Amount, Interest Rate, and Tenure (Years). The moment a user clicks and drags any of these sliders by even a millimeter, the React framework kicks in.</p>
+            <p>Every small movement updates a local variable state. The page immediately asks a master formula equation to run using those numbers: <em>(Principal * rate * (1+rate)^time) / ((1+rate)^time - 1)</em>.</p>
+            <p>The result is instantly printed large on the right side of the screen, breaking down the exact monthly payment and total bank interest cut in giant text, making complicated bank math totally transparent and easy to visualize.</p>
+        </div>
+
+        <!-- 8 MODULE 4: CODE X-RAY -->
+        <div id="section-8" class="glass-panel">
+            <h2>8 Module 4: Code X-Ray System</h2>
+            <p>Code X-Ray is a heavy, professional-grade module reserved specifically for software developers wanting to understand large computer programs.</p>
+
+            <h3>The Complex Tools Inside</h3>
+            <ul>
+                <li><strong>Interactive Architecture Map:</strong> You upload a massive folder of code files. Javascript scans every file, hunting for the word "import". It draws a relationship web—a spiderweb map—where every file is a glowing bubble, connecting lines to other files that depend on it.</li>
+                <li><strong>Code Usage Finder:</strong> A highly aggressive search engine. You type a function name, and it rapidly combs through thousands of lines of text inside the browser memory to highlight exactly where and how that function is implemented elsewhere in the project.</li>
+                <li><strong>Dead Code Detector:</strong> Utilizing logic similar to an architecture map, if it finds a file bubble that has absolutely zero connecting lines pointing to it from anywhere else in the project, it flags it as "Dead Code" that can be safely deleted.</li>
+            </ul>
+            <p><strong>How it was made:</strong> To prevent extreme memory crashes, this section uses a React technique called "Lazy Loading". The heavy code maps only download and compute exactly when the user clicks explicitly onto them, leaving the main homepage fast and light.</p>
+        </div>
+
+        <!-- 9 MODULE 5: RESUME BUILDER -->
+        <div id="section-9" class="glass-panel">
+            <h2>9 Module 5: Resume Builder Workflow</h2>
+            <p>This module exists to ensure users can produce a gorgeous, professional job resume without fighting with Microsoft Word templates.</p>
+
+            <h3>The Left-Right Live Preview Design</h3>
+            <p>The screen is split perfectly in half. On the left side are clean, clear input boxes (Name, Phone Number, Work History). On the right side is a live, glowing sheet of paper.</p>
+            <p>Because it is built with React, the moment a user presses a single key on their keyboard in the "Name" box on the left, that exact letter flashes and appears on the resume paper on the right simultaneously. The layout is pixel-perfect and mathematically rigid, refusing to let the user accidentally drag a text box off alignment.</p>
+
+            <h3>The AI Ghost Writer</h3>
+            <p>Inside the Work History box is an "AI Assist" button. Often, people struggle to describe a past job professionally. A user can type "I sold shoes and stocked shelves." Pressing AI Assist packages that bad sentence, sends it to the Gemini module, and returns: <em>"Managed high-volume retail transactions while executing inventory logistics and merchandising strategies."</em> It upgrades the user's language instantly.</p>
+
+            <h3>The Final PDF Engine</h3>
+            <p>When completed, clicking "Download" does not just take a blurry screenshot. It runs a complex HTML-to-PDF compiler that meticulously translates the exact visual styling (spacing, fonts, borders) onto a vector-based Adobe PDF file, ensuring printers construct the ink perfectly sharply.</p>
+        </div>
+
+        <!-- 10 VERIFICATION CHECKLIST -->
+        <div id="section-10" class="glass-panel">
+            <h2>10 Verification Checklist</h2>
+            <p>To ensure Zylarium remains a premium, high-end application, developers must run through this intense checklist before any update is published.</p>
+            <ul>
+                <li><strong>The Visual Stress Test:</strong> Open the tool on a massive 4K monitor. Ensure the parallax tool grid gracefully scales out to 3 or 4 columns wide, filling empty space without breaking the glass borders. Verify glowing orbs behind the glass stay positioned correctly.</li>
+                <li><strong>The Typography Inspection:</strong> Ensure secondary headers strictly follow the "font-signature" rule (the cursive styling highlighting specific words in cyan and purple). No raw system fonts are allowed to show.</li>
+                <li><strong>The Disconnected Airplane Mode Test:</strong> Shut off the computer's Wi-Fi. Enter the Unitoolbox and attempt to compress a large JPG image. If the tool displays an "Offline Error", the code architecture has failed. Image compression must successfully complete entirely offline.</li>
+                <li><strong>The Heavy File Chokehold:</strong> Feed the AI Essay Summarizer an outrageously long string of text (e.g., 50,000 words). Ensure the system does not crash or freeze the browser layout, but properly handles the API limitation error messaging safely and displays a soft warning to the user.</li>
+                <li><strong>The Filter Math Check:</strong> In Hustlefinder, check all three difficulty boxes (Beginner, Intermediate, Advanced) simultaneously. Ensure the math calculation displays correctly that 100% of the entire database is shown, rather than confusing the filtering logic.</li>
+            </ul>
+        </div>
+
+        <!-- BACK COVER -->
+        <div class="glass-panel text-center" style="margin-bottom: 2rem; border-top: 5px solid var(--primary); padding: 4rem;">
+            <h1 style="font-size: 4rem;">Zylarium</h1>
+            <p><a href="#" style="color: var(--secondary); text-decoration: none; font-size: 1.5rem; border-bottom: 1px dashed var(--secondary); padding-bottom: 2px;">zylarium.app</a></p>
+            <div class="tagline" style="margin-bottom: 0; margin-top: 2rem;">“Your Complete Digital Toolkit.”</div>
+            <div class="footer-note" style="text-align: center; border: none; margin-top: 4rem;">
+                Lead Project Engineer | Zylarium Development Team<br>
+                Complete Architecture Documentation | 2026
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
